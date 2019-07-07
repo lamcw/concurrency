@@ -8,20 +8,14 @@ import java.util.ArrayList;
 import smoker.Ingredient;
 
 class Pusher implements Runnable {
-    Ingredient pushIngredient;
-    ScoreBoard scoreBoard;
-    EnumMap<Ingredient, Pusher> pusherEnumMap;
-    EnumMap<Ingredient, Smoker> smokerEnumMap;
+    private Ingredient pushIngredient;
+    private ScoreBoard scoreBoard;
+    private EnumMap<Ingredient, Smoker> smokerEnumMap;
 
     Pusher(Ingredient pushIngredient, ScoreBoard scoreBoard, EnumMap smokerEnumMap) {
         this.pushIngredient = pushIngredient;
         this.scoreBoard = scoreBoard;
-
         this.smokerEnumMap = smokerEnumMap;
-    }
-
-    void setPushers(EnumMap<Ingredient, Pusher> pusherEnumMap) {
-        this.pusherEnumMap = pusherEnumMap;
     }
 
     private EnumSet getIngredientComplement() {

@@ -28,10 +28,6 @@ class Solution {
 
         Agent agent = new Agent(pusherEnumMap);
 
-        tobaccoPusher.setPushers(pusherEnumMap);
-        paperPusher.setPushers(pusherEnumMap);
-        matchPusher.setPushers(pusherEnumMap);
-
         new Thread(tobaccoSmoker).start();
         new Thread(paperSmoker).start();
         new Thread(matchSmoker).start();
