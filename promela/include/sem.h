@@ -5,4 +5,3 @@ inline wait(s)  {
 }
 
 inline signal(s) { s++ }
-
