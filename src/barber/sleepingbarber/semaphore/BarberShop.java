@@ -1,4 +1,4 @@
-package barber.barber.semaphore;
+package barber.sleepingbarber.semaphore;
 
 import java.util.concurrent.Semaphore;
 
@@ -18,7 +18,8 @@ class BarberShop {
         barberThread.start();
 
         while (true) {
-            new Thread(new Customer(mutex, customer, barber, customerDone, barberDone)).start();
+            Customer c = new Customer(mutex, customer, barber, customerDone, barberDone);
+            new Thread(c).start();
         }
     }
 }

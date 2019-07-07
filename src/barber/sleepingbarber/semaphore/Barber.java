@@ -1,4 +1,4 @@
-package barber.barber.semaphore;
+package barber.sleepingbarber.semaphore;
 
 import java.util.concurrent.Semaphore;
 
@@ -16,7 +16,7 @@ class Barber implements Runnable {
     }
 
     void cutHair() {
-        System.out.println("Barber cutting hair");
+        System.out.println("Barber cutting hair.");
     }
 
     @Override
@@ -29,6 +29,7 @@ class Barber implements Runnable {
                 customerDone.acquire();
                 barberDone.release();
             } catch (InterruptedException e) {
+                System.err.println("Closing the shop");
             }
         }
     }
