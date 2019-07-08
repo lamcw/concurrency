@@ -3,10 +3,28 @@ package barber.sleepingbarber.semaphore;
 import java.util.concurrent.Semaphore;
 
 class BarberShop {
-    final static int N_CUSTOMERS = 4;
-    volatile static int customers = 0;
+    final static int MAX_CUSTOMERS = 4;
+    volatile int customers;
+
+    BarberShop() {
+        customers = 0;
+    }
+
+    void incCustomers() {
+        customers++;
+    }
+
+    void decCustomers() {
+        customers--;
+    }
+
+    boolean isFull() {
+        return customers == MAX_CUSTOMERS;
+    }
 
     public static void main(String[] args) {
+        BarberShop barberShop = new BarberShop();
+
         Semaphore mutex = new Semaphore(1, true);
         Semaphore customer = new Semaphore(0, true);
         Semaphore barber = new Semaphore(0, true);
@@ -18,7 +36,7 @@ class BarberShop {
         barberThread.start();
 
         while (true) {
-            Customer c = new Customer(mutex, customer, barber, customerDone, barberDone);
+            Customer c = new Customer(barberShop, mutex, customer, barber, customerDone, barberDone);
             new Thread(c).start();
         }
     }

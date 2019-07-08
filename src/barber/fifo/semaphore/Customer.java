@@ -1,23 +1,22 @@
-package barber.sleepingbarber.semaphore;
+package barber.fifo.semaphore;
 
 import java.util.concurrent.Semaphore;
 
 class Customer implements Runnable {
     private BarberShop barberShop;
-
+    private Semaphore sem;
     private Semaphore mutex;
     private Semaphore customer;
-    private Semaphore barber;
     private Semaphore customerDone;
     private Semaphore barberDone;
 
     private String id;
 
-    Customer(BarberShop barberShop, Semaphore mutex, Semaphore customer, Semaphore barber, Semaphore customerDone, Semaphore barberDone) {
+    Customer(BarberShop barberShop, Semaphore mutex, Semaphore customer, Semaphore customerDone, Semaphore barberDone) {
+        sem = new Semaphore(0, true);
         this.barberShop = barberShop;
         this.mutex = mutex;
         this.customer = customer;
-        this.barber = barber;
         this.customerDone = customerDone;
         this.barberDone = barberDone;
     }
@@ -40,20 +39,17 @@ class Customer implements Runnable {
                 balk();
                 return;
             }
-            barberShop.incCustomers();
+            barberShop.addCustomer(sem);
             mutex.release();
 
             customer.release();
-            barber.acquire();
+            sem.acquire();
+
             getHairCut();
+
             customerDone.release();
             barberDone.acquire();
-
-            mutex.acquire();
-            barberShop.decCustomers();
-            mutex.release();
         } catch (InterruptedException e) {
-            System.err.println("Customer leaving");
         }
     }
 }
