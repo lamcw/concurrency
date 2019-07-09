@@ -5,9 +5,8 @@ import java.util.ArrayDeque;
 
 class BarberShop {
     final static int MAX_CUSTOMERS = 4;
-    final static int MAX_THREADS = 50;
     private int customers;
-    private Queue queue;
+    private Queue<Customer> queue;
     private Barber barber;
 
     BarberShop() {
@@ -49,9 +48,11 @@ class BarberShop {
         Thread barberThread = new Thread(barberShop.getBarber());
         barberThread.start();
 
-        for (int i = 0; i < MAX_THREADS; i++) {
+        while (true) {
             Customer customer = new Customer(barberShop);
             new Thread(customer).start();
+            // Need the following line to prevent running out of memory too quickly
+            try { Thread.sleep(1); } catch (InterruptedException e) {}
         }
     }
 }
