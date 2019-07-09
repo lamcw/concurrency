@@ -5,6 +5,8 @@ import java.util.ArrayDeque;
 
 class BarberShop {
     final static int MAX_CUSTOMERS = 4;
+    // timeout between thread invocation
+    final static int GENERATOR_TIMEOUT = 10;
     private int customers;
     private Queue<Customer> queue;
     private Barber barber;
@@ -52,7 +54,7 @@ class BarberShop {
             Customer customer = new Customer(barberShop);
             new Thread(customer).start();
             // Need the following line to prevent running out of memory too quickly
-            try { Thread.sleep(1); } catch (InterruptedException e) {}
+            try { Thread.sleep(GENERATOR_TIMEOUT); } catch (InterruptedException e) {}
         }
     }
 }
