@@ -1,19 +1,27 @@
 #include "include/sem.h"
 
-#define NPROCS 10
+#define NPROCS 20
 
 int n = 4;
 int customers = 0;
 byte mutex = 1;
 byte customer = 0;
-byte barber = 0;
 byte customer_done = 0;
 byte barber_done = 0;
+byte queue[4];
+byte queue_head = 0;
+byte queue_tail = n - 1;
 
 active proctype barber_proc() {
 	do
 	:: wait(customer);
-	   signal(barber);
+	   wait(mutex);
+	   byte sem_pos = queue_head;
+	   // take sem from queue
+	   queue_head = (queue_head + 1) % n;
+	   signal(mutex);
+
+	   signal(queue[sem_pos]);
 
 	   printf("Cut hair\n");
 
@@ -28,10 +36,13 @@ active [NPROCS] proctype customer_proc() {
 	:: customers == n -> signal(mutex);
 	:: else ->
 		customers++;
+		queue_tail = (queue_tail + 1) % n;
+		byte sem_pos = queue_tail;
+		queue[sem_pos] = 0;
 		signal(mutex);
 
 		signal(customer);
-		wait(barber);
+		wait(queue[sem_pos]);
 
 		printf("Getting hair cut\n");
 

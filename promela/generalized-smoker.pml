@@ -16,9 +16,9 @@ int n_match = 0;
 
 active proctype agent() {
 	do
-	:: signal(tobacco); signal(paper);
-	:: signal(paper); signal(match);
-	:: signal(tobacco); signal(match);
+	:: signal(tobacco); signal(paper)
+	:: signal(paper); signal(match)
+	:: signal(tobacco); signal(match)
 	od
 }
 

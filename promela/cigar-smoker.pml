@@ -20,11 +20,11 @@ active proctype agent() {
 	:: wait(agent_sem);
 		if
 		:: signal(tobacco);
-		   signal(paper);
+		   signal(paper)
 		:: signal(paper);
-		   signal(match);
+		   signal(match)
 		:: signal(tobacco);
-		   signal(match);
+		   signal(match)
 		fi
 	od
 }
