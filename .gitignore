@@ -29,3 +29,7 @@ jdt.ls-java-project
 
 # spin
 *.trail
+*.out
+
+# project specific
+bin/
