@@ -1,3 +1,6 @@
+/* README!!
+ * Run with Liveness -> non-progress cycles
+ */
 #include "include/sem.h"
 
 #define NPROCS 10

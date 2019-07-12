@@ -18,14 +18,14 @@ bool is_match = false;
 active proctype agent() {
 	do
 	:: wait(agent_sem);
-		if
-		:: signal(tobacco);
-		   signal(paper)
-		:: signal(paper);
-		   signal(match)
-		:: signal(tobacco);
-		   signal(match)
-		fi
+	   if
+	   :: signal(tobacco);
+	      signal(paper)
+	   :: signal(paper);
+	      signal(match)
+	   :: signal(tobacco);
+	      signal(match)
+	   fi
 	od
 }
 

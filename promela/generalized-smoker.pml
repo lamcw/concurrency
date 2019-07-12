@@ -1,3 +1,6 @@
+/* README!!
+ * Set max search depth to 10000000
+ */
 #include "include/sem.h"
 
 byte mutex = 1;
