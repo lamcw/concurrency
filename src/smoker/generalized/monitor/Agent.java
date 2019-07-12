@@ -9,7 +9,7 @@ import smoker.Ingredient;
 class Agent implements Runnable {
     private final EnumMap<Ingredient, Pusher> pusherMap;
 
-    Agent(EnumMap pusherMap) {
+    Agent(EnumMap<Ingredient, Pusher> pusherMap) {
         this.pusherMap = pusherMap;
     }
 

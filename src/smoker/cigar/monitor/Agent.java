@@ -9,7 +9,7 @@ class Agent implements Runnable {
     private Table table;
     private final Map<TableIngredient, Smoker> smokerMap;
 
-    Agent(Table table, Map smokerMap) {
+    Agent(Table table, Map<TableIngredient, Smoker> smokerMap) {
         this.table = table;
         this.smokerMap = smokerMap;
     }

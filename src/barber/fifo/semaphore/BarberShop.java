@@ -6,7 +6,7 @@ import java.util.ArrayDeque;
 
 class BarberShop {
     private final static int MAX_CUSTOMERS = 4;
-    private volatile Queue queue;
+    private volatile Queue<Semaphore> queue;
 
     BarberShop() {
         queue = new ArrayDeque<Semaphore>(MAX_CUSTOMERS);

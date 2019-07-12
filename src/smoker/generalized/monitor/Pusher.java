@@ -12,13 +12,13 @@ class Pusher implements Runnable {
     private ScoreBoard scoreBoard;
     private EnumMap<Ingredient, Smoker> smokerEnumMap;
 
-    Pusher(Ingredient pushIngredient, ScoreBoard scoreBoard, EnumMap smokerEnumMap) {
+    Pusher(Ingredient pushIngredient, ScoreBoard scoreBoard, EnumMap<Ingredient, Smoker> smokerEnumMap) {
         this.pushIngredient = pushIngredient;
         this.scoreBoard = scoreBoard;
         this.smokerEnumMap = smokerEnumMap;
     }
 
-    private EnumSet getIngredientComplement() {
+    private EnumSet<Ingredient> getIngredientComplement() {
         return EnumSet.complementOf(EnumSet.of(pushIngredient));
     }
 
@@ -32,7 +32,8 @@ class Pusher implements Runnable {
         } catch (InterruptedException e) {
         }
 
-        List<Ingredient> otherIngredientList = new ArrayList(getIngredientComplement());
+        EnumSet<Ingredient> complement = getIngredientComplement();
+        List<Ingredient> otherIngredientList = new ArrayList<Ingredient>(complement);
         Ingredient in1 = otherIngredientList.get(0);
         Ingredient in2 = otherIngredientList.get(1);
 

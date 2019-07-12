@@ -8,9 +8,9 @@ class BarberShop {
     private final static int MAX_CUSTOMERS = 20;
     private int customers = 0;
     // queue1
-    private Queue sofaQueue;
+    private Queue<Semaphore> sofaQueue;
     // queue2
-    private Queue chairQueue;
+    private Queue<Semaphore> chairQueue;
 
     BarberShop() {
         sofaQueue = new ArrayDeque<Semaphore>();

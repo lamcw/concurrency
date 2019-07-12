@@ -13,7 +13,7 @@ class Solution {
         Smoker paperSmoker = new Smoker("paper", table);
         Smoker matchSmoker = new Smoker("match", table);
 
-        final Map<TableIngredient, Smoker> map = new HashMap(Ingredient.values().length);
+        final Map<TableIngredient, Smoker> map = new HashMap<TableIngredient, Smoker>(Ingredient.values().length);
         map.put(new TableIngredient(Ingredient.PAPER, Ingredient.MATCH), tobaccoSmoker);
         map.put(new TableIngredient(Ingredient.MATCH, Ingredient.TOBACCO), paperSmoker);
         map.put(new TableIngredient(Ingredient.TOBACCO, Ingredient.PAPER), matchSmoker);
