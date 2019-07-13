@@ -2,6 +2,9 @@
  * Run with Liveness -> non-progress cycles
  */
 #include "include/sem.h"
+#define NOSTARVE
+#define PID
+#include "include/critical.h"
 
 #define NPROCS 10
 
@@ -27,6 +30,7 @@ active proctype barber_proc() {
 
 active [NPROCS] proctype customer_proc() {
 	wait(mutex);
+	critical_section();
 	if
 	:: customers == n -> signal(mutex);
 	:: else ->

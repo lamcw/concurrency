@@ -1,4 +1,7 @@
 #include "include/sem.h"
+#define NOSTARVE
+#define PID
+#include "include/critical.h"
 
 byte agent_sem = 1;
 byte mutex = 1;
@@ -33,6 +36,7 @@ active proctype pusher_a() {
 	do
 	:: wait(tobacco);
 	   wait(mutex);
+	   critical_section();
 	   if
 	   :: is_paper -> is_paper = false; signal(match_sem)
 	   :: is_match -> is_match = false; signal(paper_sem)
@@ -46,6 +50,7 @@ active proctype pusher_b() {
 	do
 	:: wait(paper);
 	   wait(mutex);
+	   critical_section();
 	   if
 	   :: is_tobacco -> is_tobacco = false; signal(match_sem)
 	   :: is_match -> is_match = false; signal(tobacco_sem)
@@ -59,6 +64,7 @@ active proctype pusher_c() {
 	do
 	:: wait(match);
 	   wait(mutex);
+	   critical_section();
 	   if
 	   :: is_tobacco -> is_tobacco = false; signal(paper_sem)
 	   :: is_paper -> is_paper = false; signal(tobacco_sem)
@@ -72,6 +78,7 @@ active proctype smoker_tobacco() {
 	do
 	:: wait(tobacco_sem);
 	   printf("Making cigar\n");
+	   assert(agent_sem == 0);
 	   signal(agent_sem);
 	   printf("Smoking\n")
 	od
@@ -81,6 +88,7 @@ active proctype smoker_paper() {
 	do
 	:: wait(paper_sem);
 	   printf("Making cigar\n");
+	   assert(agent_sem == 0);
 	   signal(agent_sem);
 	   printf("Smoking\n")
 	od
@@ -90,6 +98,7 @@ active proctype smoker_match() {
 	do
 	:: wait(match_sem);
 	   printf("Making cigar\n");
+	   assert(agent_sem == 0);
 	   signal(agent_sem);
 	   printf("Smoking\n")
 	od

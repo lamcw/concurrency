@@ -2,6 +2,9 @@
  * Set max search depth to 10000000
  */
 #include "include/sem.h"
+#define NOSTARVE
+#define PID
+#include "include/critical.h"
 
 byte mutex = 1;
 
@@ -29,6 +32,7 @@ active proctype pusher_a() {
 	do
 	:: wait(tobacco);
 	   wait(mutex);
+	   critical_section();
 	   if
 	   :: (n_paper > 0) -> n_paper--; signal(match_sem)
 	   :: (n_match > 0) -> n_match--; signal(paper_sem)
@@ -42,6 +46,7 @@ active proctype pusher_b() {
 	do
 	:: wait(paper);
 	   wait(mutex);
+	   critical_section();
 	   if
 	   :: (n_tobacco > 0) -> n_tobacco--; signal(match_sem)
 	   :: (n_match > 0) -> n_match--; signal(tobacco_sem)
@@ -55,6 +60,7 @@ active proctype pusher_c() {
 	do
 	:: wait(match);
 	   wait(mutex);
+	   critical_section();
 	   if
 	   :: (n_tobacco > 0) -> n_tobacco--; signal(paper_sem)
 	   :: (n_paper > 0) -> n_paper--; signal(tobacco_sem)
