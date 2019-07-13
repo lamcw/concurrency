@@ -80,6 +80,7 @@ Run the build script to build all Java files.
 
 ```console
 $ ./build
+$ ./build clean  # Remove all artifacts
 ```
 
 # Running the solution

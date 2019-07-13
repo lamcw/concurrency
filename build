@@ -1,5 +1,9 @@
 #!/bin/sh
 
-OUT_DIR=bin
+out_dir=bin
 
-javac -d $OUT_DIR -Xlint:unchecked $(find . -name "*.java" -type f)
+if [ $1 -a $1 = "clean" ]; then
+	rm -rf "$out_dir"
+else
+	javac -d $out_dir -Xlint:unchecked $(find . -name "*.java" -type f)
+fi
