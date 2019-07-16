@@ -1,6 +1,3 @@
-/* README!!
- * Run with Liveness -> non-progress cycles
- */
 #include "include/sem.h"
 
 #define NPROCS 40
@@ -22,7 +19,7 @@ byte queue2_head = 0;
 byte queue2_tail = n - 1;
 
 active proctype barber_proc() {
-	do
+end:	do
 	:: wait(customer1);
 	   wait(mutex);
 	   byte sem_pos = queue1_head;

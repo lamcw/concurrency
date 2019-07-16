@@ -1,6 +1,3 @@
-/* README!!
- * Run with Liveness -> non-progress cycles
- */
 #include "include/sem.h"
 #define NOSTARVE
 #define PID
@@ -17,7 +14,7 @@ byte customer_done = 0;
 byte barber_done = 0;
 
 active proctype barber_proc() {
-	do
+end:	do
 	:: wait(customer);
 	   signal(barber);
 
